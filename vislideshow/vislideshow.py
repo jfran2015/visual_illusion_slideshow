@@ -1,7 +1,7 @@
-
-
-from ast import Num
-
+import tkinter as tk
+from tkinter import *
+from PIL import Image
+from PIL import ImageTk
 
 class format:
     num_format = 0
@@ -36,5 +36,12 @@ class image(format):
         self.extension = extension
         num_image += 1
         
-        
-#how to blah blah blah 
+
+
+if __name__ == "__main__":
+   print("File one executed when ran directly")
+   kanizsaTriangle = image("Kanizsa Triangle", "files/35_kanizsa_main.png", ".png")
+   print(kanizsaTriangle.name)
+   
+else:
+   print("File one executed when imported")
