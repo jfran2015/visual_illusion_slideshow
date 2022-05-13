@@ -1,83 +1,60 @@
-from pickle import FALSE, TRUE
-from turtle import width
 import pygame
-import os
+import sys, os
 
-class format:
-    num_format = 0
-    
-    def __init__(self, name, path):
-        self.name = name
-        self.path = path
-        format.num_format += 1
-        
 
-class gif(format):
-    num_gif = 0
+#https://riptutorial.com/pygame/example/17502/drawing-and-a-basic-animation
+
+background_color = (255,255,255)
+
+class media:
+    def __init__(self):
+        pygame.init()
+        pygame.display.set_caption("Visual Illusion Slideshow")
+        
+        self.size = self.width, self.height=700, 700,
+        self.screen = pygame.display.set_mode((self.size))
+        self.screen.fill((background_color))
+        self.load_image()
+        
+    def update_image(self, name):
+        self.name=name
+        self.image=pygame.image.load(self.name)
+        
+        self.screen.blit(self.image, (0,0))
+        #pygame.display.flip()
+        
+        pygame.display.update()
+        pygame.time.wait(2000) #time in miliseconds
+        return True
     
-    def __init__(self, name, path, extension):
-        super().__init__(name, path)
-        self.extension = extension
-        gif.num_gif += 1
+    def load_image(self):
+        x = 0
+        data_list=[]
+        path = r'files/'
+        file_folder = os.listdir(path)
         
-class video(format):
-    num_video = 0
-    
-    def __init__(self, name, path, extension):
-        super().__init__(name, path)
-        self.extension = extension
-        video.num_video += 1
+        for name in file_folder:
+            if name.endswith(".jpg") or name.endswith(".png") or name.endswith(".gif"):
+                data_list.append(name)
+            data_list[x] = (r"files/" + data_list[x])
+            x += 1
         
-class image(format):
-    num_image = 0
-    
-    def __init__(self, name, path, extension):
-        super().__init__(name, path)
-        self.extension = extension        
-        image.num_image += 1
-   
-#read in folder with illusions in it and sort to relative classes     
-def sort_illusions(folder):
-    paths = os.listdir(folder)
-    for file in paths:
-        print(file)
-        if file[-4:] == ".png" or file[-4:] == ".jpg":
-        
-  
-        
+        for content in data_list:
+            self.update_image(content)
+            
+    def main(self):
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+
 
 
 if __name__ == "__main__":
-    image1 = image("Kanizsa Triangle", r"\files\35_kanizsa_main.png", ".png")
-    
-    sort_illusions('files/')
-    
-    
-    image = pygame.image.load(r'files\rotsnake2.gif')
-    background_color = (255,255,255)
-    (width, height) = (500, 500)
-    screen = pygame.display.set_mode((width, height))
-    pygame.display.set_caption("Visual Illusions")
-    screen.fill(background_color)
-    screen.blit(image, (0,0))
-    
-    
-    pygame.display.flip()
-    running = TRUE
-    while running:
-        
-        screen.fill(background_color)
-        screen.blit(image, (0,0))
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = FALSE
-                pygame.quit()
-                quit()  
-            pygame.display.update()
-
-
-else:
-    print("file not rain as main")            
+    obj=media()
+    obj.main()
+           
    
-kanizsaTriangle = image("Kanizsa Triangle", "files/35_kanizsa_main.png", ".png")
+
    
